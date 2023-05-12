@@ -37,4 +37,14 @@ CREATE TABLE `comments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
--- 2023-05-11 10:15:50
+DROP TABLE IF EXISTS `ratings`;
+CREATE TABLE `ratings` (
+  `article_id` tinyint(3) unsigned NOT NULL,
+  `ip` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `rating` tinyint(4) NOT NULL,
+  KEY `article_id` (`article_id`),
+  CONSTRAINT `ratings_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `articles` (`article_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+-- 2023-05-12 06:11:06
