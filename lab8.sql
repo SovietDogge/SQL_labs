@@ -7,9 +7,9 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 DROP TABLE IF EXISTS `files`;
 CREATE TABLE `files` (
-  `file_id` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `id` tinyint(4) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`file_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -22,16 +22,16 @@ CREATE TABLE `files_projects` (
   KEY `file_id` (`file_id`),
   KEY `project_id` (`project_id`),
   CONSTRAINT `files_projects_ibfk_1` FOREIGN KEY (`id`) REFERENCES `branches` (`id`),
-  CONSTRAINT `files_projects_ibfk_2` FOREIGN KEY (`file_id`) REFERENCES `files` (`file_id`),
-  CONSTRAINT `files_projects_ibfk_3` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`)
+  CONSTRAINT `files_projects_ibfk_2` FOREIGN KEY (`file_id`) REFERENCES `files` (`id`),
+  CONSTRAINT `files_projects_ibfk_3` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
 DROP TABLE IF EXISTS `projects`;
 CREATE TABLE `projects` (
-  `project_id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`project_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -44,7 +44,7 @@ CREATE TABLE `tasks` (
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`task_id`),
   KEY `project_id` (`project_id`),
-  CONSTRAINT `tasks_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`)
+  CONSTRAINT `tasks_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -57,15 +57,15 @@ CREATE TABLE `tasks_files` (
   KEY `task_id` (`task_id`),
   KEY `file_id` (`file_id`),
   CONSTRAINT `tasks_files_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `tasks` (`task_id`),
-  CONSTRAINT `tasks_files_ibfk_2` FOREIGN KEY (`file_id`) REFERENCES `files` (`file_id`)
+  CONSTRAINT `tasks_files_ibfk_2` FOREIGN KEY (`file_id`) REFERENCES `files` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-  `user_id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`user_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -77,8 +77,8 @@ CREATE TABLE `users_project` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `project_id` (`project_id`),
-  CONSTRAINT `users_project_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
-  CONSTRAINT `users_project_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`)
+  CONSTRAINT `users_project_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `users_project_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -90,9 +90,9 @@ CREATE TABLE `users_tasks` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `task_id` (`task_id`),
-  CONSTRAINT `users_tasks_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
+  CONSTRAINT `users_tasks_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `users_tasks_ibfk_2` FOREIGN KEY (`task_id`) REFERENCES `tasks` (`task_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
--- 2023-05-19 06:43:04
+-- 2023-05-26 05:49:19
